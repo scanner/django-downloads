@@ -1,0 +1,12 @@
+{% block content %}
+
+<p>
+  This will delete the downloadable {{ downloadable.blurb }}. This
+  operation can not be undone.
+</p>
+<form method="POST" id="form_content" action="{% url downloads_delete downloadable.id %}">{% csrf_token %}
+  <input type="submit" name="submit" value="Delete" />
+  <a href="{% url downloads_details downloadable.id %}" class="linkbutton">Cancel</a>
+</form>
+
+{% endblock content %}

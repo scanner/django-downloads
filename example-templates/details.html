@@ -1,0 +1,24 @@
+{% extends "downloads/base.html" %}
+{% load i18n guardian_tags %}
+{% block submenu %}
+   {% get_obj_perms request.user for downloadable as "dperms" %}
+   <h3>Operations</h3>
+   <ul>
+     {% if "change_downloadable" in dperms %}
+       <li><a href="{% url downloads_edit downloadable.id %}">Edit</a></li>
+     {% endif %}
+     {% if "delete_downloadable" in dperms %}
+       <li><a href="{% url downloads_delete downloadable.id %}">Delete</a></li>
+     {% endif %}
+   </ul>
+{% endblock submenu %}
+
+{% block content %}
+   {% get_obj_perms request.user for downloadable as "dperms" %}
+   <p>{{ downloadable.description }}</p>
+   <p><b>Owner:</b> {{ downloadable.owner }}</p>
+   <p><b>Created at:</b> {{ downloadable.created }}</p>
+   {% if "download_downloadable" in dperms %}
+      <p><b><a href="{% url downloads_download downloadable.id %}">Download</a></b></p>
+   {% endif %}
+{% endblock content %}

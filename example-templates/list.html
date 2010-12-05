@@ -1,0 +1,43 @@
+{% extends "downloads/base.html" %}
+{% load i18n asutils guardian_tags %}
+{% block content %}
+  {% if object_list %}
+    {% if is_paginated %}
+      <div class="paginator">{% paginator %}</div>
+    {% endif %}
+
+    <table class="listing">
+      <thead>
+        <tr class="header">
+          <th>Blurb</th>
+          <th>Created</th>
+          <th>Download</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for dnldbl in object_list %}
+          {% get_obj_perms request.user for dnldbl as "dperms" %}
+          <tr class="{% cycle odd,even %}">
+            {% if "view_downloadable" in dperms %}
+               <td><a href="{% url downloads_details dnldbl.id %}">{{ dnldbl.blurb }}</a></td>
+            {% else %}
+               <td>{{ dnldbl.blurb }}</td>
+            {% endif %}
+            <td>{{ dnldbl.created }}</td>
+            <td>
+              {% if "download_downloadable" in dperms %}
+                <a href="{% url downloads_download dnldbl.id %}">Download</a>
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    {% if is_paginated %}
+      <div class="paginator">{% paginator %}</div>
+    {% endif %}
+  {% else %}
+    <p>There are currently no downloadable items.</p>
+  {% endif %}
+{% endblock content %}

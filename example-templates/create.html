@@ -1,0 +1,10 @@
+{% extends "downloads/base.html" %}
+{% block content %}
+
+<form method="POST" enctype="multipart/form-data" id="form_content" action="{% url downloads_create %}">{% csrf_token %}
+  {{ form.as_p }}
+  <input type="submit" name="submit" value="Create" />
+  <a href="{% url downloads_create %}">Cancel</a>
+</form>
+
+{% endblock content %}

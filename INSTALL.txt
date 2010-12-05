@@ -1,0 +1,9 @@
+To install it, run the following command inside this directory:
+
+    python setup.py install
+
+Note that this application requires Python 2.4 or later, and Django
+1.2 or greater. If you have django-guardian installed it will use that
+to allow per-object level ACL's which is part of the whole point.
+You can obtain Python from http://www.python.org/ and Django
+from http://www.djangoproject.com/.
